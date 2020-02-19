@@ -1,0 +1,766 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/11/2019 1:32:45 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ODSTEST"
+  DTS:CreatorName="ACADEMIC\it_sparsons"
+  DTS:DTSID="{A283AE0C-8E93-4AB0-AD60-9D0FE84764E8}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.0900.30"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="merge savedlist tables"
+  DTS:PackageType="5"
+  DTS:VersionBuild="36"
+  DTS:VersionGUID="{549D4497-CAD6-4D19-AA10-51597839778A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[odstest]"
+      DTS:CreationName="ADO.NET:SQL"
+      DTS:DTSID="{A80CBE74-670A-48FE-A192-DD9E21703479}"
+      DTS:ObjectName="odstest">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=odstest;Integrated Security=SSPI;Connect Timeout=30;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Data Flow Task"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{3E48BD26-1FCE-4812-B42C-E165E5653D92}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Data Flow Task"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Data Flow Task\find rows in odstest not in ods"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="find rows in odstest not in ods"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[R_X_SAVEDLISTS_HISTORICAL]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[R_X_SAVEDLISTS_HISTORICAL]) [refTable]
+where [refTable].[X_SAVEDLISTS_RECORD_ID] = ? and [refTable].[X_SAVEDLISTS_PERMANENT] = ? and [refTable].[X_SAVEDLISTS_NAME] = ? and [refTable].[X_SAVEDLISTS_ID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="X_SAVEDLISTS_RECORD_ID" dataType="DT_STR" length="55" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="X_SAVEDLISTS_PERMANENT" dataType="DT_STR" length="10" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="X_SAVEDLISTS_NAME" dataType="DT_STR" length="55" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="X_SAVEDLISTS_ID" dataType="DT_STR" length="111" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="X_SAVEDLISTS_TIMESTAMP" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_RECORD_ID]};#{Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_PERMANENT]};#{Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_NAME]};#{Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_ID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\find rows in odstest not in ods.Connections[OleDbConnection]"
+                  connectionManagerID="{F8EABDAA-7652-4E13-BFFB-A86DD94E55BC}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ods.ODS_Reporting]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\find rows in odstest not in ods.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\find rows in odstest not in ods.Inputs[Lookup Input].Columns[X_SAVEDLISTS_RECORD_ID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="55"
+                      cachedName="X_SAVEDLISTS_RECORD_ID"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_RECORD_ID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">X_SAVEDLISTS_RECORD_ID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Data Flow Task\find rows in odstest not in ods.Inputs[Lookup Input].Columns[X_SAVEDLISTS_PERMANENT]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="X_SAVEDLISTS_PERMANENT"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_PERMANENT]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">X_SAVEDLISTS_PERMANENT</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Data Flow Task\find rows in odstest not in ods.Inputs[Lookup Input].Columns[X_SAVEDLISTS_NAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="55"
+                      cachedName="X_SAVEDLISTS_NAME"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_NAME]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">X_SAVEDLISTS_NAME</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Data Flow Task\find rows in odstest not in ods.Inputs[Lookup Input].Columns[X_SAVEDLISTS_ID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="111"
+                      cachedName="X_SAVEDLISTS_ID"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_ID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">X_SAVEDLISTS_ID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\find rows in odstest not in ods.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Data Flow Task\find rows in odstest not in ods.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\find rows in odstest not in ods.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Data Flow Task\find rows in odstest not in ods.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\find rows in odstest not in ods.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Data Flow Task\find rows in odstest not in ods.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\find rows in odstest not in ods.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\find rows in odstest not in ods.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\find rows in odstest not in ods.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\find rows in odstest not in ods.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="insert into ods R_X_SAVEDLISTS_HISTORICAL"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[R_X_SAVEDLISTS_HISTORICAL]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Connections[OleDbConnection]"
+                  connectionManagerID="{F8EABDAA-7652-4E13-BFFB-A86DD94E55BC}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ods.ODS_Reporting]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Inputs[OLE DB Destination Input].Columns[X_SAVEDLISTS_RECORD_ID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="55"
+                      cachedName="X_SAVEDLISTS_RECORD_ID"
+                      externalMetadataColumnId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Inputs[OLE DB Destination Input].ExternalColumns[X_SAVEDLISTS_RECORD_ID]"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_RECORD_ID]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Inputs[OLE DB Destination Input].Columns[X_SAVEDLISTS_PERMANENT]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="X_SAVEDLISTS_PERMANENT"
+                      externalMetadataColumnId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Inputs[OLE DB Destination Input].ExternalColumns[X_SAVEDLISTS_PERMANENT]"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_PERMANENT]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Inputs[OLE DB Destination Input].Columns[X_SAVEDLISTS_NAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="55"
+                      cachedName="X_SAVEDLISTS_NAME"
+                      externalMetadataColumnId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Inputs[OLE DB Destination Input].ExternalColumns[X_SAVEDLISTS_NAME]"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_NAME]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Inputs[OLE DB Destination Input].Columns[X_SAVEDLISTS_ID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="111"
+                      cachedName="X_SAVEDLISTS_ID"
+                      externalMetadataColumnId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Inputs[OLE DB Destination Input].ExternalColumns[X_SAVEDLISTS_ID]"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_ID]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Inputs[OLE DB Destination Input].Columns[X_SAVEDLISTS_TIMESTAMP]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="X_SAVEDLISTS_TIMESTAMP"
+                      externalMetadataColumnId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Inputs[OLE DB Destination Input].ExternalColumns[X_SAVEDLISTS_TIMESTAMP]"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_TIMESTAMP]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Inputs[OLE DB Destination Input].ExternalColumns[X_SAVEDLISTS_RECORD_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="55"
+                      name="X_SAVEDLISTS_RECORD_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Inputs[OLE DB Destination Input].ExternalColumns[X_SAVEDLISTS_PERMANENT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="X_SAVEDLISTS_PERMANENT" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Inputs[OLE DB Destination Input].ExternalColumns[X_SAVEDLISTS_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="55"
+                      name="X_SAVEDLISTS_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Inputs[OLE DB Destination Input].ExternalColumns[X_SAVEDLISTS_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="111"
+                      name="X_SAVEDLISTS_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Inputs[OLE DB Destination Input].ExternalColumns[X_SAVEDLISTS_TIMESTAMP]"
+                      dataType="dbTimeStamp"
+                      name="X_SAVEDLISTS_TIMESTAMP" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="odstest R_X_SAVEDLISTS_HISTORICAL source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[R_X_SAVEDLISTS_HISTORICAL]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Connections[OleDbConnection]"
+                  connectionManagerID="{BA0C0F73-8AF2-4070-8B27-F1A0FFA50D8D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[odstest.ODS_Reporting]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_RECORD_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].ExternalColumns[X_SAVEDLISTS_RECORD_ID]"
+                      length="55"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_RECORD_ID]"
+                      name="X_SAVEDLISTS_RECORD_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_PERMANENT]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].ExternalColumns[X_SAVEDLISTS_PERMANENT]"
+                      length="10"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_PERMANENT]"
+                      name="X_SAVEDLISTS_PERMANENT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].ExternalColumns[X_SAVEDLISTS_NAME]"
+                      length="55"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_NAME]"
+                      name="X_SAVEDLISTS_NAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].ExternalColumns[X_SAVEDLISTS_ID]"
+                      length="111"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_ID]"
+                      name="X_SAVEDLISTS_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_TIMESTAMP]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].ExternalColumns[X_SAVEDLISTS_TIMESTAMP]"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].Columns[X_SAVEDLISTS_TIMESTAMP]"
+                      name="X_SAVEDLISTS_TIMESTAMP"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].ExternalColumns[X_SAVEDLISTS_RECORD_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="55"
+                      name="X_SAVEDLISTS_RECORD_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].ExternalColumns[X_SAVEDLISTS_PERMANENT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="X_SAVEDLISTS_PERMANENT" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].ExternalColumns[X_SAVEDLISTS_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="55"
+                      name="X_SAVEDLISTS_NAME" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].ExternalColumns[X_SAVEDLISTS_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="111"
+                      name="X_SAVEDLISTS_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output].ExternalColumns[X_SAVEDLISTS_TIMESTAMP]"
+                      dataType="dbTimeStamp"
+                      name="X_SAVEDLISTS_TIMESTAMP" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Error Output].Columns[X_SAVEDLISTS_RECORD_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="55"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Error Output].Columns[X_SAVEDLISTS_RECORD_ID]"
+                      name="X_SAVEDLISTS_RECORD_ID" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Error Output].Columns[X_SAVEDLISTS_PERMANENT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Error Output].Columns[X_SAVEDLISTS_PERMANENT]"
+                      name="X_SAVEDLISTS_PERMANENT" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Error Output].Columns[X_SAVEDLISTS_NAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="55"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Error Output].Columns[X_SAVEDLISTS_NAME]"
+                      name="X_SAVEDLISTS_NAME" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Error Output].Columns[X_SAVEDLISTS_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="111"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Error Output].Columns[X_SAVEDLISTS_ID]"
+                      name="X_SAVEDLISTS_ID" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Error Output].Columns[X_SAVEDLISTS_TIMESTAMP]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Error Output].Columns[X_SAVEDLISTS_TIMESTAMP]"
+                      name="X_SAVEDLISTS_TIMESTAMP" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Data Flow Task.Paths[Lookup No Match Output]"
+              endId="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL.Inputs[OLE DB Destination Input]"
+              name="Lookup No Match Output"
+              startId="Package\Data Flow Task\find rows in odstest not in ods.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[OLE DB Source Output]"
+              endId="Package\Data Flow Task\find rows in odstest not in ods.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Data Flow Task"
+          TopLeft="5.5,5.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Data Flow Task">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="300,42"
+          Id="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source"
+          TopLeft="231.5,12.5" />
+        <NodeLayout
+          Size="299,42"
+          Id="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL"
+          TopLeft="227.5,209.5" />
+        <NodeLayout
+          Size="221,42"
+          Id="Package\Data Flow Task\find rows in odstest not in ods"
+          TopLeft="269.5,104.5" />
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[OLE DB Source Output]"
+          TopLeft="380.75,54.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,50"
+              Start="0,0"
+              End="0,42.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Lookup No Match Output]"
+          TopLeft="378.5,146.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{x:Null}"
+              EndConnector="0,63"
+              Start="0,0"
+              End="0,55.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,21.9453125,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\odstest R_X_SAVEDLISTS_HISTORICAL source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\insert into ods R_X_SAVEDLISTS_HISTORICAL">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\find rows in odstest not in ods">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[R_X_SAVEDLISTS_HISTORICAL]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
